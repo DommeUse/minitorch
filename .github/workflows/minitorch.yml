@@ -28,16 +28,16 @@ jobs:
         # flake8 --ignore "N801, E203, E266, E501, W503, F812, F401, F841, E741, N803, N802, N806" minitorch/ tests/ project/
     - name: Test with pytest
       run: |
-        echo "Module 0"
-        pytest tests -x -m task0_1
-        pytest tests -x -m task0_2
-        pytest tests -x -m task0_3
-        pytest tests -x -m task0_4
-        # echo "Module 1"
-        # pytest tests -x -m task1_1
-        # pytest tests -x -m task1_2
-        # pytest tests -x -m task1_3
-        # pytest tests -x -m task1_4
+        # echo "Module 0"
+        # pytest tests -x -m task0_1
+        # pytest tests -x -m task0_2
+        # pytest tests -x -m task0_3
+        # pytest tests -x -m task0_4
+        echo "Module 1"
+        pytest tests -x -m task1_1
+        pytest tests -x -m task1_2
+        pytest tests -x -m task1_3
+        pytest tests -x -m task1_4
         # echo "Module 2"
         # pytest tests -x -m task2_1
         # pytest tests -x -m task2_2
