@@ -264,8 +264,16 @@ def tensor_map(
         in_shape: Shape,
         in_strides: Strides,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError('Need to implement for Task 2.3')
+        for i in range(len(out)):
+            out_index = np.array([0] * len(out_shape))
+            to_index(i, out_shape, out_index)
+            out_pos = index_to_position(out_index, out_strides)
+
+            in_index = np.array([0] * len(in_shape))
+            broadcast_index(out_index, out_shape, in_shape, in_index)
+
+            in_pos = index_to_position(in_index, in_strides)
+            out[out_pos] = fn(in_storage[in_pos])
 
     return _map
 
@@ -309,8 +317,20 @@ def tensor_zip(
         b_shape: Shape,
         b_strides: Strides,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError('Need to implement for Task 2.3')
+        for i in range(len(out)):
+            out_index = np.array([0] * len(out_shape))
+            to_index(i, out_shape, out_index)
+            out_pos = index_to_position(out_index, out_strides)
+
+            a_index = np.array([0] * len(a_shape))
+            broadcast_index(out_index, out_shape, a_shape, a_index)
+            a_pos = index_to_position(a_index, a_strides)
+
+            b_index = np.array([0] * len(b_shape))
+            broadcast_index(out_index, out_shape, b_shape, b_index)
+            b_pos = index_to_position(b_index, b_strides)
+
+            out[out_pos] = fn(a_storage[a_pos], b_storage[b_pos])
 
     return _zip
 
@@ -340,8 +360,25 @@ def tensor_reduce(
         a_strides: Strides,
         reduce_dim: int,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError('Need to implement for Task 2.3')
+        for i in range(len(out)):
+            out_index = np.array([0] * len(out_shape))
+            to_index(i, out_shape, out_index)
+            out_pos = index_to_position(out_index, out_strides)
+
+            prev = ""
+
+            for j in range(a_shape[reduce_dim]):
+                a_index = np.array([0] * len(a_shape))
+                out_index[reduce_dim] = j
+                broadcast_index(out_index, out_shape, a_shape, a_index)
+                a_pos = index_to_position(a_index, a_strides)
+
+                if isinstance(prev, str):
+                    prev = a_storage[a_pos]
+                else:
+                    prev = fn(prev, a_storage[a_pos])
+
+            out[out_pos] = prev
 
     return _reduce
 
