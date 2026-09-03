@@ -217,6 +217,9 @@ class Tensor:
     def mean(self, dim: Optional[int] = None) -> Tensor:
         "Compute the mean over dimension `dim`"
         if dim is not None:
+            print(type(self.shape))
+            print(type(self.shape[0]))
+            print(self.shape)
             return self.sum(dim) / self.shape[dim]
         else:
             return self.sum() / self.size
@@ -358,7 +361,7 @@ class Tensor:
         assert len(x) == len(h.inputs), f"Bug in function {h.last_fn}"
         return [
             (inp, inp.expand(self._ensure_tensor(d_in)))
-            for inp, d_in in zip(h.inputs, x)
+            for inp, d_in in zip(h.inputs, x) if not inp.is_constant()
         ]
 
     def backward(self, grad_output: Optional[Tensor] = None) -> None:
