@@ -105,3 +105,119 @@ Epoch  450  loss  31.58022176831887 correct 31\
 Epoch  500  loss  31.4995521002193 correct 30
 
 </details>
+
+---
+
+# Task 2.5
+
+## Training logs for different datasets
+
+Setup: 500 эпох, RATE = 0.5
+
+<details>
+
+<summary>Dataset Simple (HIDDEN = 2)</summary>
+
+Epoch  50  loss  13.529027536039331 correct 47\
+Epoch  100  loss  6.78886515991389 correct 48\
+Epoch  150  loss  3.5914067526357307 correct 49\
+Epoch  200  loss  2.1006156326620045 correct 50\
+Epoch  250  loss  1.5415709397217028 correct 50\
+Epoch  300  loss  1.1906836454448735 correct 50\
+Epoch  350  loss  0.9510568444720532 correct 50\
+Epoch  400  loss  0.7807441733792146 correct 50\
+Epoch  450  loss  0.6554375752103635 correct 50\
+Epoch  500  loss  0.5606262846346962 correct 50
+
+</details>
+
+<details>
+
+<summary>Dataset Diag (HIDDEN = 3)</summary>
+
+Epoch  50  loss  19.98619306070075 correct 43\
+Epoch  100  loss  18.039954666702354 correct 43\
+Epoch  150  loss  9.39454029671889 correct 43\
+Epoch  200  loss  4.7893575258665955 correct 49\
+Epoch  250  loss  2.8734337141159645 correct 50\
+Epoch  300  loss  1.9782673306043483 correct 50\
+Epoch  350  loss  1.4654796542648352 correct 50\
+Epoch  400  loss  1.1488362924005868 correct 50\
+Epoch  450  loss  0.9163165109169126 correct 50\
+Epoch  500  loss  0.7612681677883518 correct 50
+
+</details>
+
+<details>
+
+<summary>Dataset Split (HIDDEN = 4)</summary>
+Epoch  50  loss  34.53726440915442 correct 30\
+Epoch  100  loss  34.12224929256636 correct 27\
+Epoch  150  loss  33.53279907992247 correct 35\
+Epoch  200  loss  26.455704968744474 correct 39\
+Epoch  250  loss  26.76759061097029 correct 33\
+Epoch  300  loss  53.37583555481839 correct 32\
+Epoch  350  loss  9.488337134419517 correct 47\
+Epoch  400  loss  5.098813965289093 correct 49\
+Epoch  450  loss  29.345541606007206 correct 35\
+Epoch  500  loss  29.01947747832216 correct 35
+
+</details>
+
+<details>
+
+<summary>Dataset Xor (HIDDEN = 2)</summary>
+Epoch  50  loss  33.034536778512525 correct 35\
+Epoch  100  loss  27.04796683195333 correct 36\
+Epoch  150  loss  29.407746436631317 correct 36\
+Epoch  200  loss  24.42018292088776 correct 39\
+Epoch  250  loss  24.27182000847835 correct 40\
+Epoch  300  loss  22.704015058632365 correct 40\
+Epoch  350  loss  21.728844517888675 correct 40\
+Epoch  400  loss  22.245429827263653 correct 40\
+Epoch  450  loss  20.50976556176458 correct 40\
+Epoch  500  loss  17.664866275290873 correct 44
+
+</details>
+
+<details>
+
+<summary>Dataset Circle (HIDDEN = 3)</summary>
+Epoch  50  loss  29.546872252434465 correct 33\
+Epoch  100  loss  26.383979865910778 correct 33\
+Epoch  150  loss  18.157195681306337 correct 43\
+Epoch  200  loss  11.187252029474596 correct 49\
+Epoch  250  loss  9.752650104780866 correct 45\
+Epoch  300  loss  6.414629231941306 correct 48\
+Epoch  350  loss  8.440735825812025 correct 45\
+Epoch  400  loss  5.396500929776612 correct 49\
+Epoch  450  loss  6.014325323655826 correct 47\
+Epoch  500  loss  5.113109559634959 correct 49
+
+</details>
+
+<details>
+
+<summary>Dataset Spiral (HIDDEN = 4)</summary>
+Epoch  50  loss  34.08073734474355 correct 30\
+Epoch  100  loss  33.707632305540706 correct 29\
+Epoch  150  loss  33.58640158315737 correct 29\
+Epoch  200  loss  33.53992754124374 correct 29\
+Epoch  250  loss  33.49136080718658 correct 29\
+Epoch  300  loss  33.42556761361785 correct 30\
+Epoch  350  loss  33.356311173171115 correct 30\
+Epoch  400  loss  33.27580173522283 correct 30\
+Epoch  450  loss  33.15388016491077 correct 30\
+Epoch  500  loss  33.003436117623096 correct 30
+
+</details>
+Ниже приведено среднее время на эпоху для разных датасетов.
+
+| Dataset   | HIDDEN | Average epoch time |
+|:---------:|:------:|:------------------:|
+| Simple    |   2    | 0.099 s |
+| Diag      |   3    | 0.142 s |
+| Split     |   4    | 0.201 s |
+| Xor       |   2    | 0.096 s |
+| Circle    |   3    | 0.144 s |
+| Spiral    |   4    | 0.200 s |
