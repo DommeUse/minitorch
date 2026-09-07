@@ -32,12 +32,12 @@ def neg(x: float) -> float:
 
 def lt(x: float, y: float) -> float:
     "$f(x) =$ 1.0 if x is less than y else 0.0"
-    return float(x < y)
+    return 1.0 if x < y else 0.0
 
 
 def eq(x: float, y: float) -> float:
     "$f(x) =$ 1.0 if x is equal to y else 0.0"
-    return float(x == y)
+    return 1.0 if x == y else 0.0
 
 
 def max(x: float, y: float) -> float:
@@ -47,7 +47,7 @@ def max(x: float, y: float) -> float:
 
 def is_close(x: float, y: float) -> float:
     "$f(x) = |x - y| < 1e-2$"
-    return float(abs(x - y) < 1e-2)
+    return 1.0 if abs(x - y) < 1e-2 else 0.0
 
 
 def sigmoid(x: float) -> float:
@@ -104,7 +104,7 @@ def inv_back(x: float, d: float) -> float:
 
 def relu_back(x: float, d: float) -> float:
     r"If $f = relu$ compute $d \times f'(x)$"
-    return d * float(x >= 0)
+    return d * (1.0 if x >= 0 else 0.0)
 
 
 # ## Task 0.3
