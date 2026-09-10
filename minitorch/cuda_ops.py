@@ -370,10 +370,8 @@ def _mm_practice(out: Storage, a: Storage, b: Storage, size: int) -> None:
         size (int): size of the square
     """
     BLOCK_DIM = 32
-    cache_a = cuda.local.array((BLOCK_DIM, BLOCK_DIM), dtype = numba.float64)
-    cache_b = cuda.local.array((BLOCK_DIM, BLOCK_DIM), dtype = numba.float64)
-
-    size = int(len(out) ** 0.5)
+    cache_a = cuda.shared.array((BLOCK_DIM, BLOCK_DIM), dtype = numba.float64)
+    cache_b = cuda.shared.array((BLOCK_DIM, BLOCK_DIM), dtype = numba.float64)
 
     x = cuda.threadIdx.x
     y = cuda.threadIdx.y
@@ -391,7 +389,8 @@ def _mm_practice(out: Storage, a: Storage, b: Storage, size: int) -> None:
 
     for k in range(size):
         result += cache_a[x, k] * cache_b[k, y]
-    out[x * size + y] = result
+    if x < size and y < size:
+        out[x * size + y] = result
 
 
 
