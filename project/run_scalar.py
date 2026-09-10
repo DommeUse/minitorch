@@ -104,13 +104,13 @@ class ScalarTrain:
             optim.step()
 
             # Logging
-            if epoch % 10 == 0 or epoch == max_epochs:
+            if epoch % 50 == 0 or epoch == max_epochs:
                 log_fn(epoch, total_loss, correct, losses)
 
 
 if __name__ == "__main__":
     PTS = 50
-    HIDDEN = 2
+    HIDDEN = 15
     RATE = 0.5
-    data = minitorch.datasets["Simple"](PTS)
+    data = minitorch.datasets["Spiral"](PTS)
     ScalarTrain(HIDDEN).train(data, RATE)
