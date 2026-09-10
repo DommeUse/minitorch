@@ -520,3 +520,77 @@ Allocation hoisting:
 No allocation hoisting found
 None
 ```
+
+# Task 3.5
+
+## Training logs
+
+Setup: 100 epochs, RATE = 0.05
+
+<details>
+
+<summary>Dataset Xor (HIDDEN = 100)</summary>
+
+Epoch  0  loss  7.0231324439412575 correct 45
+Epoch  10  loss  3.219988729913598 correct 35
+Epoch  20  loss  3.1486486921522445 correct 47
+Epoch  30  loss  1.5414372076266436 correct 47
+Epoch  40  loss  2.8473582187265993 correct 48
+Epoch  50  loss  1.7662224024442974 correct 49
+Epoch  60  loss  1.713549862638449 correct 49
+Epoch  70  loss  1.4921929788149475 correct 48
+Epoch  80  loss  1.1443126749489188 correct 49
+Epoch  90  loss  0.733097321028424 correct 49
+
+</details>
+
+<details>
+
+<summary>Dataset Simple (HIDDEN = 100)</summary>
+
+Epoch  0  loss  6.886108828510306 correct 25
+Epoch  10  loss  4.465690504203697 correct 45
+Epoch  20  loss  1.716731917422818 correct 48
+Epoch  30  loss  0.9703770033495022 correct 50
+Epoch  40  loss  1.7522440045463838 correct 50
+Epoch  50  loss  0.2222524437750437 correct 50
+Epoch  60  loss  1.5784807904435922 correct 49
+Epoch  70  loss  1.0779519647133058 correct 50
+Epoch  80  loss  0.8827486338821084 correct 50
+Epoch  90  loss  1.3646259253555135 correct 50
+
+</details>
+
+<details>
+
+<summary>Dataset Split (HIDDEN = 100)</summary>
+
+Epoch  0  loss  6.696263290939359 correct 29
+Epoch  10  loss  6.632233224179997 correct 39
+Epoch  20  loss  4.258285995113232 correct 37
+Epoch  30  loss  5.007679812329037 correct 44
+Epoch  40  loss  3.6242679040630468 correct 46
+Epoch  50  loss  3.452284006986125 correct 48
+Epoch  60  loss  2.799769659898762 correct 44
+Epoch  70  loss  1.8874347255072503 correct 46
+Epoch  80  loss  2.7386322409975623 correct 49
+Epoch  90  loss  2.5873888648999595 correct 48
+
+</details>
+
+Ниже приведено среднее время на эпоху для разных датасетов.
+
+| Dataset   | HIDDEN | Average epoch time |
+|:---------:|:------:|:------------------:|
+| Xor       |   100    | 1.359 s |
+| Simple    |   100    | 1.452 s |
+| Split     |   100    | 1.406 s |
+
+Mean epoch time on larger models trained with Xor dataset:
+
+
+| HIDDEN | Average epoch time |
+|:------:|:------------------:|
+|  100   | 1.359 s |
+|  150   | 1.449 s |
+|  200   | 1.496 s |
