@@ -370,8 +370,29 @@ def _mm_practice(out: Storage, a: Storage, b: Storage, size: int) -> None:
         size (int): size of the square
     """
     BLOCK_DIM = 32
-    # TODO: Implement for Task 3.3.
-    raise NotImplementedError('Need to implement for Task 3.3')
+    cache_a = cuda.local.array((BLOCK_DIM, BLOCK_DIM), dtype = numba.float64)
+    cache_b = cuda.local.array((BLOCK_DIM, BLOCK_DIM), dtype = numba.float64)
+
+    size = int(len(out) ** 0.5)
+
+    x = cuda.threadIdx.x
+    y = cuda.threadIdx.y
+
+    if x < size and y < size:
+        cache_a[x, y] = a[x * size + y]
+        cache_b[x, y] = b[x * size + y]
+    else:
+        cache_a[x, y] = 0
+        cache_b[x, y] = 0
+
+    cuda.syncthreads()
+
+    result = 0.0
+
+    for k in range(size):
+        result += cache_a[x, k] * cache_b[k, y]
+    out[x * size + y] = result
+
 
 
 jit_mm_practice = cuda.jit()(_mm_practice)
@@ -440,8 +461,35 @@ def _tensor_matrix_multiply(
     #    a) Copy into shared memory for a matrix.
     #    b) Copy into shared memory for b matrix
     #    c) Compute the dot produce for position c[i, j]
-    # TODO: Implement for Task 3.4.
-    raise NotImplementedError('Need to implement for Task 3.4')
+    
+
+    result = 0.0
+
+    for block_start in range(0, a_shape[-1], BLOCK_DIM):
+        new_x = pi + block_start
+        new_y = pj + block_start
+
+        if i < a_shape[-2] and new_y < a_shape[-1]:
+            pos = a_batch_stride * batch + i * a_strides[-2] + new_y * a_strides[-1]
+            a_shared[pi, pj] = a_storage[pos]
+        else:
+            a_shared[pi, pj] = 0.0
+
+        if new_x < b_shape[-2] and j < b_shape[-1]:
+            pos = b_batch_stride * batch + new_x * b_strides[-2] + j * b_strides[-1]
+            b_shared[pi, pj] = b_storage[pos]
+        else:
+            b_shared[pi, pj] = 0.0
+
+        cuda.syncthreads()
+
+        for k in range(BLOCK_DIM):
+            result += a_shared[pi, k] * b_shared[k, pj]
+
+    if i < out_shape[-2] and j < out_shape[-1]:
+        pos = (out_strides[0] if len(out_shape) > 2 else 0) * batch + i * out_strides[-2] + j * out_strides[-1]
+        out[pos] = result
+
 
 
 tensor_matrix_multiply = cuda.jit(_tensor_matrix_multiply)
