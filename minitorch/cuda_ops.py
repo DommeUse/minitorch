@@ -317,6 +317,7 @@ def tensor_reduce(
             a_index[i] = out_index[i]
 
         inside_idx = out_index[reduce_dim] * BLOCK_DIM + pos
+        a_index[reduce_dim] = inside_idx
         if inside_idx < a_shape[reduce_dim]:
             cache[pos] = a_storage[index_to_position(a_index, a_strides)]
         else:
