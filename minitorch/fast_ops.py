@@ -266,6 +266,8 @@ def tensor_reduce(
             to_index(i + 0, out_shape, out_index)
             out_pos = index_to_position(out_index, out_strides)
 
+            
+
             for j in range(a_shape[reduce_dim]):
                 a_index = np.empty(len(a_shape), dtype = np.int32)
                 broadcast_index(out_index, out_shape, a_shape, a_index)
@@ -324,8 +326,23 @@ def _tensor_matrix_multiply(
     a_batch_stride = a_strides[0] if a_shape[0] > 1 else 0
     b_batch_stride = b_strides[0] if b_shape[0] > 1 else 0
 
-    # TODO: Implement for Task 3.2.
-    raise NotImplementedError('Need to implement for Task 3.2')
+
+    for i in prange(len(out)):
+        batch_idx = i // out_strides[0] if len(out_strides) > 2 else 0
+        row_idx = (i // out_strides[-2]) % out_shape[-2]
+        col_idx = (i // out_strides[-1]) % out_shape[-1]
+
+        a_pos = batch_idx * a_batch_stride + row_idx * a_strides[-2]
+        b_pos = batch_idx * b_batch_stride + col_idx * b_strides[-1]
+
+        result = 0
+        for j in range(a_shape[-1]):
+            result += a_storage[a_pos] * b_storage[b_pos]
+
+            a_pos += a_strides[-1]
+            b_pos += b_strides[-2]
+        out[i] = result
+        
 
 
 tensor_matrix_multiply = njit(parallel=True, fastmath=True)(_tensor_matrix_multiply)
